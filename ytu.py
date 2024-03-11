@@ -106,7 +106,7 @@ def main():
     parser.add_argument('--regionCode', default='US', help='Region code to list categories for (default is US).')
 
     args = parser.parse_args()
-    if not args.listCategories or args.file:
+    if not args.listCategories or not args.file:
         parser.print_help()
         exit()
         
