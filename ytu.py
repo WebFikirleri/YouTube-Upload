@@ -1,4 +1,5 @@
 import os
+import sys
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
@@ -16,7 +17,7 @@ def get_authenticated_service():
     if not os.path.isfile(client_secrets_file):
         print(f"Sorry, I can't find the file '{client_secrets_file}'!")
         print("For more information, please read the README: https://github.com/WebFikirleri/YouTube-Upload/blob/main/README.md")
-        exit()
+        sys.exit(0)
     
     credentials_file = "credentials.json"
 
@@ -95,7 +96,7 @@ def upload_video(youtube, file, title, description, category, tags, defaultLangu
 
 def main():
     parser = argparse.ArgumentParser(prog="ytu", description='Upload a video to YouTube', epilog="If you find this app useful, please consider making a donation.")
-    parser.add_argument('--file', help='Path to the video file to upload.')
+    parser.add_argument('--file', default='', help='Path to the video file to upload.')
     parser.add_argument('--title', default='', help='Title of the video.')
     parser.add_argument('--description', default='', help='Description of the video. Ignored if --descriptionFile is given.')
     parser.add_argument('--descriptionFile', help='Path to a text file containing the description of the video. This overrides --description.')
@@ -106,14 +107,14 @@ def main():
     parser.add_argument('--regionCode', default='US', help='Region code to list categories for (default is US).')
 
     args = parser.parse_args()
-    if not args.listCategories or not args.file:
+    if args.listCategories == False and args.file == '':
         parser.print_help()
-        exit()
+        sys.exit(0)
         
     if args.listCategories:
         youtube = get_authenticated_service()
         list_categories(youtube, args.regionCode)
-        exit()
+        sys.exit(0)
     
     if args.descriptionFile:
         with open(args.descriptionFile, 'r') as f:
