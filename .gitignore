@@ -1,4 +1,5 @@
-.venv
+.venv/
+.venvLnx/
 .client_secrets.json
 .youtube-upload-credentials.json
 client_secrets_2.json
@@ -8,6 +9,7 @@ credentials.json
 example.mp4
 token.json
 build.bat
+build.sh
 build/
 dist/
 ytu.spec

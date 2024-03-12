@@ -1,6 +1,6 @@
 # YouTube Video Uploader
 
-This is a command-line application that allows you to upload videos to YouTube. It uses the YouTube Data API v3 for video uploads.
+This is a command-line application that allows you to upload videos to YouTube with ProgressBar. It uses the YouTube Data API v3 for video uploads.
 
 ## Features
 
