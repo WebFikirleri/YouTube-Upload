@@ -13,13 +13,26 @@ import argparse
 def get_authenticated_service():
 
     client_secrets_file = "client_secrets.json"
+    credentials_file = "credentials.json"
+
+    if getattr(sys, 'frozen', False):
+        base_path = os.path.dirname(sys.executable)
+    elif __file__:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+
+    client_secrets_file_pwd = os.path.join(base_path, "client_secrets.json")
+    credentials_file_pwd = os.path.join(base_path, "credentials.json")
+    if os.path.isfile(client_secrets_file_pwd):
+        client_secrets_file = client_secrets_file_pwd
+        credentials_file = credentials_file_pwd
+    else:
+        client_secrets_file = os.path.join(os.path.expanduser('~'), ".client_secrets.json")
+        credentials_file = os.path.join(os.path.expanduser('~'), '.credentials.json')
     
     if not os.path.isfile(client_secrets_file):
         print(f"Sorry, I can't find the file '{client_secrets_file}'!")
         print("For more information, please read the README: https://github.com/WebFikirleri/YouTube-Upload/blob/main/README.md")
         sys.exit(0)
-    
-    credentials_file = "credentials.json"
 
     api_service_name = "youtube"
     api_version = "v3"
